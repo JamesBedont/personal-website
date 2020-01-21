@@ -1,6 +1,59 @@
 body {
   font-family: 'SF Pro Text', 'SF Pro Icons', system-ui;
-  padding: 20px 20px 60px;
   max-width: 680px;
   margin: 0 auto;
+}
+html, body {
+  height: 100%;
+}
+#__next {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content {
+  flex: 1 0 auto;
+}
+footer {
+  flex-shrink: 0;
+}
+.footer-content {
+  display: flex;
+  justify-content: center;
+}
+.footer-line {
+  background: #ddd;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), color-stop(#ccc), to(rgba(255,255,255,0)));
+  background: -webkit-linear-gradient(left, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
+  background: linear-gradient(to right, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
+  height: 1px;
+  margin: 2.5em 0;
+}
+.list-inline > li {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.list-inline > li > a {
+  color: #337ab7;
+  text-decoration: none;
+  font-size: 1em;
+}
+header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+#headshot {
+  margin-top: 8px;
+  border-radius: 50%;
+  max-width: 15%;
+}
+#name {
+  margin: 8px 0px 0px 0px;
+}
+#title {
+  font-size: 18px;
+  margin: 8px 0px 8px 0px;
 }
