@@ -3,7 +3,7 @@ body {
   max-width: 740px;
   margin: 0 auto;
   font-family: 'Source Sans Pro', sans-serif;
-  color: rgba(0, 0, 0, .8);
+  color: rgba(0, 0, 0, 0.8);
   font-size: 20px;
   line-height: 1.6;
 }
@@ -34,20 +34,37 @@ footer {
 
 .footer-line {
   background: #ddd;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(#ccc), to(rgba(255, 255, 255, 0)));
-  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), #ccc, rgba(255, 255, 255, 0));
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), #ccc, rgba(255, 255, 255, 0));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgba(255, 255, 255, 0)),
+    color-stop(#ccc),
+    to(rgba(255, 255, 255, 0))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0),
+    #ccc,
+    rgba(255, 255, 255, 0)
+  );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    #ccc,
+    rgba(255, 255, 255, 0)
+  );
   height: 1px;
   margin: 2.5em 0;
 }
 
-.list-inline>li {
+.list-inline > li {
   display: inline-block;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.list-inline>li>a {
+.list-inline > li > a {
   color: #337ab7;
   text-decoration: none;
   font-size: 1em;
@@ -63,35 +80,36 @@ header {
 #headshot {
   margin-top: 8px;
   border-radius: 50%;
-  max-width: 15%;
+  max-width: 20%;
 }
 
 #name {
-  margin: 8px 0px 0px 0px;
+  margin: 0px;
+  font-size: 1.5em;
 }
 
 #title {
-  font-size: 18px;
-  margin: 8px 0px 8px 0px;
+  font-size: 1em;
+  margin: 0px;
 }
 
 nav {
-  margin: 0;
-  padding: 20px 0 0 0;
+  padding: 0px;
+  margin-top: 35px;
   text-align: center;
   width: 100%;
 }
 
-nav>ul {
+nav > ul {
   margin: 0 auto;
-  padding: 0 25px;
+  padding: 0px;
   line-height: 1.5em;
   z-index: 20;
   position: relative;
   white-space: nowrap;
 }
 
-nav>ul>li {
+nav > ul > li {
   display: inline-block;
   padding: 0 20px;
   margin: 0;
@@ -103,7 +121,7 @@ nav>ul>li {
   font-weight: bold;
 }
 
-nav>ul>li:nth-child(n+1) {
+nav > ul > li:nth-child(n + 1) {
   margin-left: 8px;
 }
 
@@ -120,4 +138,14 @@ nav>ul>li:nth-child(n+1) {
   border-bottom: 1px solid #ddd;
   z-index: 10;
   position: relative;
+}
+
+#title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#title-text {
+  margin-left: 18px;
 }
