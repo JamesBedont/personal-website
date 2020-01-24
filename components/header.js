@@ -10,6 +10,7 @@ const Header = () => {
           <li>Projects</li>
           <li>About</li>
         </ul>
+        <div className='strike-through'></div>
       </nav>
     </header>
   );
