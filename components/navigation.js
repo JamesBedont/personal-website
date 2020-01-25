@@ -42,7 +42,7 @@ const Navigation = ({ currentPath }) => {
 };
 
 Navigation.propTypes = {
-  currentPath: PropTypes.string
+  currentPath: PropTypes.string.isRequired
 };
 
 export default Navigation;

@@ -1,16 +1,22 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
-const Post = () => {
+const Post = ({ title, date }) => {
   return (
     <div className='post'>
       <Link href='#'>
         <a className='post-link'>
-          <h2 className='post-title'>Post Title</h2>
+          <h2 className='post-title'>{title}</h2>
         </a>
       </Link>
-      <p className='post-date'>Month 01, 2020</p>
+      <p className='post-date'>{date}</p>
     </div>
   );
+};
+
+Post.propTypes = {
+  title: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired
 };
 
 export default Post;

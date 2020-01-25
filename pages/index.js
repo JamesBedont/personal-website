@@ -1,16 +1,47 @@
 import { Fragment } from 'react';
 import Post from '../components/post';
+import matter from 'gray-matter';
+import PropTypes from 'prop-types';
 
-const HomePage = () => {
-  return (
-    <Fragment>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-    </Fragment>
-  );
+const HomePage = ({ posts }) => {
+  const postElements = posts.map((post, idx) => (
+    <Post key={idx} title={post.title} date={post.date} />
+  ));
+  return <Fragment>{postElements}</Fragment>;
+};
+
+HomePage.propTypes = {
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired
+    })
+  ).isRequired
+};
+
+HomePage.getInitialProps = async function() {
+  const allPostsFrontMatter = (context => {
+    const postRelFilePaths = context.keys();
+    return postRelFilePaths.map(postRelFilePath => {
+      const { default: fileContents } = context(postRelFilePath);
+      const { data: frontMatter } = matter(fileContents);
+
+      const date = new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      }).format(new Date(frontMatter.date));
+
+      return {
+        title: frontMatter.title,
+        date
+      };
+    });
+  })(require.context('../posts', true, /\.md$/));
+
+  return {
+    posts: allPostsFrontMatter
+  };
 };
 
 export default HomePage;
