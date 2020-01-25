@@ -1,10 +1,8 @@
 body {
-  /* font-family: 'SF Pro Text', 'SF Pro Icons', system-ui; */
   max-width: 740px;
   margin: 0 auto;
   font-family: 'Source Sans Pro', sans-serif;
   color: rgba(0, 0, 0, 0.8);
-  font-size: 20px;
   line-height: 1.6;
 }
 
@@ -24,38 +22,9 @@ body {
 }
 
 footer {
-  flex-shrink: 0;
-}
-
-.footer-content {
   display: flex;
   justify-content: center;
-}
-
-.footer-line {
-  background: #ddd;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(rgba(255, 255, 255, 0)),
-    color-stop(#ccc),
-    to(rgba(255, 255, 255, 0))
-  );
-  background: -webkit-linear-gradient(
-    left,
-    rgba(255, 255, 255, 0),
-    #ccc,
-    rgba(255, 255, 255, 0)
-  );
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0),
-    #ccc,
-    rgba(255, 255, 255, 0)
-  );
-  height: 1px;
-  margin: 2.5em 0;
+  flex-shrink: 0;
 }
 
 .list-inline > li {
@@ -95,7 +64,7 @@ header {
 
 nav {
   padding: 0px;
-  margin-top: 35px;
+  margin-top: 15px;
   text-align: center;
   width: 100%;
 }
@@ -148,4 +117,13 @@ nav > ul > li:nth-child(n + 1) {
 
 #title-text {
   margin-left: 18px;
+}
+
+.footer-text-separator {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+footer a {
+  color: inherit;
 }
