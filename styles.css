@@ -90,6 +90,11 @@ nav > ul > li {
   font-weight: bold;
 }
 
+nav > ul > li > a {
+  color: inherit;
+  text-decoration: none;
+}
+
 nav > ul > li:nth-child(n + 1) {
   margin-left: 8px;
 }

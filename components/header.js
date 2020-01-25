@@ -1,4 +1,9 @@
+import { useRouter } from 'next/router';
+import Navigation from '../components/navigation';
+
 const Header = () => {
+  const { pathname } = useRouter();
+
   return (
     <header>
       <div id='title-wrapper'>
@@ -8,14 +13,7 @@ const Header = () => {
           <h2 id='title'>Software Engineer</h2>
         </div>
       </div>
-      <nav>
-        <ul>
-          <li>Writing</li>
-          <li>Projects</li>
-          <li>About</li>
-        </ul>
-        <div className='strike-through'></div>
-      </nav>
+      <Navigation currentPath={pathname} />
     </header>
   );
 };
