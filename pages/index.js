@@ -1,7 +1,16 @@
 import { Fragment } from 'react';
+import Post from '../components/post';
 
 const HomePage = () => {
-  return <Fragment>hi world</Fragment>;
+  return (
+    <Fragment>
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+    </Fragment>
+  );
 };
 
 export default HomePage;
