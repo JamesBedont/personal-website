@@ -21,7 +21,7 @@ You must be running 64bit Windows 10 with the Anniversary Update or later. And f
 
 After the restart you should be able to press the start menu type in "ubuntu" and see the following new program. Clicking on it opens up a bash shell.
 
-![Ubuntu on Windows](/images/windowsrails/ubuntuapp.PNG)
+![Ubuntu on Windows](/windowsrails/ubuntuapp.png)
 
 It is within Bash where we will be installing Ruby on Rails. Because this isn't a post about how to install Ruby on Rails on Ubuntu I will link to a [great guide on how to do just that](https://gorails.com/setup/ubuntu/14.04). Since we are now in a Ubuntu Bash Shell we can treat it as such and follow any Ubuntu resources.
 
@@ -33,7 +33,7 @@ It's now when I would like to point out that [using Windows apps and tools to ch
 
 Within our Bash shell the Windows File System can be found at `/mnt/`. Below is a comparison of `/mnt/c` and the C drive contents navigated to from the file explorer. Notice that they are identical; we are now navigating into the Windows File System from Linux.
 
-![mnt/c and C drive compare](/images/windowsrails/mntcompare.png)
+![mnt/c and C drive compare](/windowsrails/mntcompare.png)
 
 So long as we generate the Rails project within the Windows File System (`/mnt`) we are inline with intended use and at no risk of data loss. Not to mention we can then modify those files as we would for any other Windows files.
 
@@ -41,7 +41,7 @@ So long as we generate the Rails project within the Windows File System (`/mnt`)
 
 I have found that the best thing to do first is create a [symlink](https://en.wikipedia.org/wiki/Symbolic_link) to our Windows development folder. For this post I have created the following directory within windows `E:\documents\ruby_projects` which from within the Bash shell is `/mnt/e/documents/ruby_projects`.
 
-![creating a symlink](/images/windowsrails/symlink.png)
+![creating a symlink](/windowsrails/symlink.png)
 
 `$ ln -s TARGET LINK_NAME`
 
@@ -50,7 +50,7 @@ I have found that the best thing to do first is create a [symlink](https://en.wi
 3. CD into the new blog directory and do `$ rails server` which will start a server listening on port 3000
 4. Navigate to `localhost:3000` within a Windows web browser.
 
-<img src="/images/windowsrails/rails_setup_success.PNG" class="center-image">
+![rails setup success image](/windowsrails/rails_setup_success.png)
 
 Success! Note how that message is saying Ruby is running within Linux.
 
