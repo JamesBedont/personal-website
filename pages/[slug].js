@@ -1,8 +1,14 @@
+import '../prism';
+import { useEffect } from 'react';
 import matter from 'gray-matter';
-import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
 
 const PostPage = ({ postMarkdown, title, date }) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   return (
     <article>
       <h1>{title}</h1>
