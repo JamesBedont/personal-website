@@ -41,6 +41,8 @@ HomePage.getInitialProps = async function() {
     });
   })(require.context('../posts', true, /\.md$/));
 
+  allPostsFrontMatter.sort((a, b) => new Date(b.date) - new Date(a.date));
+
   return {
     posts: allPostsFrontMatter
   };
