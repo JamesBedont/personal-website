@@ -1,7 +1,7 @@
-import { Fragment } from 'react';
+import UnderConstruction from '../components/underConstruction';
 
 const AboutPage = () => {
-  return <Fragment>I'm james</Fragment>;
+  return <UnderConstruction />;
 };
 
 export default AboutPage;

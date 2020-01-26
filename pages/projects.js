@@ -1,7 +1,7 @@
-import { Fragment } from 'react';
+import UnderConstruction from '../components/underConstruction';
 
 const ProjectsPage = () => {
-  return <Fragment>I do things</Fragment>;
+  return <UnderConstruction />;
 };
 
 export default ProjectsPage;
