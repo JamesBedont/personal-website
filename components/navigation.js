@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const links = [
   {
     path: '/',
-    pathMatcher: /\/\[slug\]/,
+    pathMatcher: /\/\[slug\]|^\/$/,
     label: 'Writing'
   },
   {
