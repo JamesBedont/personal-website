@@ -1,8 +1,11 @@
 import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
+import '../prism';
 
-const PostPage = ({ postMarkdown }) => <ReactMarkdown source={postMarkdown} />;
+const PostPage = ({ postMarkdown }) => (
+  <ReactMarkdown escapeHtml={false}>{postMarkdown}</ReactMarkdown>
+);
 
 PostPage.propTypes = {
   postMarkdown: PropTypes.string.isRequired

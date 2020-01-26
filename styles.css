@@ -157,3 +157,11 @@ footer a {
   margin: 0px;
   color: #7a7a7a;
 }
+
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
