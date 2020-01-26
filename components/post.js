@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Post = ({ title, link, date }) => {
   return (
     <div className='post'>
-      <Link href={link}>
+      <Link href='/[slug]' as={`/${link}`}>
         <a className='post-link'>
           <h2 className='post-title'>{title}</h2>
         </a>

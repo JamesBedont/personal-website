@@ -31,7 +31,7 @@ HomePage.getInitialProps = async function() {
         year: 'numeric'
       }).format(new Date(frontMatter.date));
 
-      const link = `/${frontMatter.title.toLowerCase().replace(/\s/g, '-')}`;
+      const link = frontMatter.title.toLowerCase().replace(/\s/g, '-');
 
       return {
         title: frontMatter.title,
