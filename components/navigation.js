@@ -4,21 +4,24 @@ import PropTypes from 'prop-types';
 const links = [
   {
     path: '/',
+    pathMatcher: /\/\[slug\]/,
     label: 'Writing'
   },
   {
     path: '/projects',
+    pathMatcher: /\/projects/,
     label: 'Projects'
   },
   {
     path: '/about',
+    pathMatcher: /\/about/,
     label: 'About'
   }
 ];
 
 const Navigation = ({ currentPath }) => {
   const navItems = links.map((link, idx) => {
-    const isActivePage = currentPath === link.path;
+    const isActivePage = link.pathMatcher.test(currentPath);
 
     const linkElement = isActivePage ? (
       <a className='active'>{link.label}</a>

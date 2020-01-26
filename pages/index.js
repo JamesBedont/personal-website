@@ -4,9 +4,7 @@ import matter from 'gray-matter';
 import PropTypes from 'prop-types';
 
 const HomePage = ({ posts }) => {
-  const postElements = posts.map((post, idx) => (
-    <Post key={idx} title={post.title} date={post.date} />
-  ));
+  const postElements = posts.map((post, idx) => <Post key={idx} {...post} />);
   return <Fragment>{postElements}</Fragment>;
 };
 
@@ -14,7 +12,8 @@ HomePage.propTypes = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired
+      date: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired
     })
   ).isRequired
 };
@@ -32,8 +31,11 @@ HomePage.getInitialProps = async function() {
         year: 'numeric'
       }).format(new Date(frontMatter.date));
 
+      const link = `/${frontMatter.title.toLowerCase().replace(/\s/g, '-')}`;
+
       return {
         title: frontMatter.title,
+        link,
         date
       };
     });
