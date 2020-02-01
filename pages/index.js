@@ -1,7 +1,7 @@
-import { Fragment } from 'react';
-import Post from '../components/post';
 import matter from 'gray-matter';
+import Post from '../components/post';
 import PropTypes from 'prop-types';
+import { Fragment } from 'react';
 
 const HomePage = ({ posts }) => {
   const postElements = posts.map((post, idx) => <Post key={idx} {...post} />);

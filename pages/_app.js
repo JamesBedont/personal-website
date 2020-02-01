@@ -1,19 +1,14 @@
 import 'normalize.css';
 import '../styles.css';
 import Prism from 'prismjs';
-import { Fragment } from 'react';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import Layout from '../components/layout';
 
-// This default export is required in a new `pages/_app.js` file.
-export default function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
-    <Fragment>
-      <Header />
-      <div className='content'>
-        <Component {...pageProps} />
-      </div>
-      <Footer />
-    </Fragment>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   );
-}
+};
+
+export default MyApp;
