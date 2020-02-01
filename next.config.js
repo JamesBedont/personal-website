@@ -28,7 +28,9 @@ module.exports = {
 
     return {
       ...postConfiguration,
-      '/': { page: '/' }
+      '/': { page: '/' },
+      '/about': { page: '/about' },
+      '/projects': { page: '/projects' }
     };
   }
 };
