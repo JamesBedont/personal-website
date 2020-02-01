@@ -17,7 +17,7 @@ class MyDocument extends Document {
 
           <link rel='shortcut icon' type='image/x-icon' href='/favicon.png' />
         </Head>
-        <body>
+        <body className='line-numbers'>
           <Main />
           <NextScript />
         </body>

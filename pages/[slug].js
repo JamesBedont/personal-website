@@ -13,7 +13,7 @@ const PostPage = ({ postMarkdown, title, date }) => {
     <article>
       <h1>{title}</h1>
       <p className='post-date'>{date}</p>
-      <ReactMarkdown escapeHtml={false}>{postMarkdown}</ReactMarkdown>
+      <ReactMarkdown>{postMarkdown}</ReactMarkdown>
     </article>
   );
 };
