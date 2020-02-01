@@ -7,15 +7,13 @@ The Google Maps API has a multitude of services that need to be sown together to
 
 **outline**
 
-1. <a href="#terms">Terms explained.</a>
-1. <a href="#setup">Initial Setup.</a>
-1. <a href="#geocode">Geocode a location.</a>
-1. <a href="#radar">RadarSearch for Places within a given radius surrounding a location.</a>
-1. <a href="#details">GetDetails for each Place found within a radius.</a>
-1. <a href="#marker">Create map markers for each Place while extending the bounds of the map.</a>
-1. <a href="#gist">Full Code GIST</a>
-
-<a name="terms"></a>
+1. Terms explained.
+1. Initial Setup.
+1. Geocode a location.
+1. RadarSearch for Places within a given radius surrounding a location.
+1. GetDetails for each Place found within a radius.
+1. Create map markers for each Place while extending the bounds of the map.
+1. Full Code GIST
 
 ### Terms Explained
 
@@ -30,8 +28,6 @@ The Google Maps API has a multitude of services that need to be sown together to
 **Bounds** represent the viewport of the map object. Users will only see what is inside of the bounds of the map and will have to scroll/zoom to see more. Its important for the Bounds of the map to encompass all the Places/Markers.
 
 **InfoWindow** is a bubble looking overlay often connected to a Marker that can display information about the Place represented by said Marker.
-
-<a name="setup"></a>
 
 ### Initial Setup
 
@@ -131,8 +127,6 @@ document.getElementById('find').addEventListener('click', function() {
 });
 ```
 
-<a name="geocode"></a>
-
 ### Geocoding a Location
 
 The first thing to do when the user presses the find button is to geocode whatever location they entered into the `#location` input.
@@ -199,8 +193,6 @@ types: Array[1]
 ```
 
 Recalling the outline the next step is to do a radar search based on the location the user gave us. So far we have taken `UCF` and geocoded it. We now need the `latLng` object of `UCF` to feed into the radar search. this object is located at: `results.geometry.location` found on line 5 of the response above.
-
-<a name="radar"></a>
 
 ### Radar Search
 
@@ -291,8 +283,6 @@ etc...
 
 As you can see an array of objects containing summarized Place data is returned for every place within 2 miles of UCF with the name WAWA. Notice that we don't actually have much information about the Place itself; we will need to pass the `place_id` value of each Place into the `getDetails()` method on the Places Class next.
 
-<a name="details"></a>
-
 ### Get Place Details
 
 The `getDetails` method of the Places service returns full details of a Place given a `place_id`. This service can only be called for one place at a time; meaning we must iterate through the results array sending an api request for each Place object. Lets start by simply defining a `findDetail()` function that will use the `getDetails` method.
@@ -382,8 +372,6 @@ etc..
 
 `results` on line 25 contains **full detail place objects** for each WAWA Place. For a full understanding of everything that the detailed place object contains [refer to the documentation](https://developers.google.com/maps/documentation/javascript/places#place_details_responses) at this point we have lots of great data.
 
-<a name="marker"></a>
-
 ### Create Map Markers that open infoWindow when clicked
 
 This is the home stretch. At last we have all the data we could possibly want to present the user; all that is left to be done is to add map markers that when clicked display an `infoWindow`.
@@ -465,8 +453,6 @@ document.getElementById('find').addEventListener('click', function() {
 
 Done! An optional step would be to take all this great data and build a UI outside of the google map so the user has a nice results list to reference.
 
-<a name="gist"></a>
-
 ### Full Code + HTML
 
-<script src="https://gist.github.com/JamesBedont/31fb39532a8b5b425aaf.js"></script>
+[Github Gist](https://gist.github.com/JamesBedont/31fb39532a8b5b425aaf)
