@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 const Layout = ({ children, title = 'James Bedont' }) => {
   const script = {
@@ -24,11 +25,15 @@ const Layout = ({ children, title = 'James Bedont' }) => {
       </Head>
       <Header />
 
-      {children}
+      <div className='content'>{children}</div>
 
       <Footer />
     </Fragment>
   );
+};
+
+Layout.propTypes = {
+  title: PropTypes.string.isRequired
 };
 
 export default Layout;

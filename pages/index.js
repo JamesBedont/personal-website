@@ -1,11 +1,11 @@
 import matter from 'gray-matter';
 import Post from '../components/post';
 import PropTypes from 'prop-types';
-import { Fragment } from 'react';
+import Layout from '../components/layout';
 
 const HomePage = ({ posts }) => {
   const postElements = posts.map((post, idx) => <Post key={idx} {...post} />);
-  return <Fragment>{postElements}</Fragment>;
+  return <Layout title='Writing'>{postElements}</Layout>;
 };
 
 HomePage.propTypes = {

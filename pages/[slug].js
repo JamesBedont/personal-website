@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import matter from 'gray-matter';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
+import Layout from '../components/layout';
 
 const PostPage = ({ postMarkdown, title, date }) => {
   useEffect(() => {
@@ -9,11 +10,13 @@ const PostPage = ({ postMarkdown, title, date }) => {
   }, []);
 
   return (
-    <article>
-      <h1>{title}</h1>
-      <p className='post-date'>{date}</p>
-      <ReactMarkdown>{postMarkdown}</ReactMarkdown>
-    </article>
+    <Layout title={title}>
+      <article>
+        <h1>{title}</h1>
+        <p className='post-date'>{date}</p>
+        <ReactMarkdown>{postMarkdown}</ReactMarkdown>
+      </article>
+    </Layout>
   );
 };
 
