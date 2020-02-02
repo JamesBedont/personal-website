@@ -30,8 +30,10 @@ export default (req, res) => {
 
   feed.addCategory('Software Development');
 
+  console.log(JSON.stringify(path.join(process.cwd(), 'generated')));
+  console.log(JSON.stringify(path.join(process.cwd())));
+
   const posts = fs.readdirSync(getPath('posts'));
-  console.log(posts);
   posts.map(fileName => {
     const rawPostContent = fs.readFileSync(
       path.join(getPath('posts'), fileName),
