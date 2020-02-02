@@ -6,7 +6,7 @@ import * as marked from 'marked';
 import * as process from 'process';
 
 // https://github.com/prisma/prisma2/issues/1021#issuecomment-568511284
-const getPath = pathName => path.join(process.cwd(), pathName);
+const getPath = pathName => path.join(process.cwd(), 'generated', pathName);
 
 export default (req, res) => {
   const feed = new Feed({
@@ -30,10 +30,11 @@ export default (req, res) => {
 
   feed.addCategory('Software Development');
 
-  const posts = fs.readdirSync(getPath('../posts'));
+  const posts = fs.readdirSync(getPath('posts'));
+  console.log(posts);
   posts.map(fileName => {
     const rawPostContent = fs.readFileSync(
-      path.join(getPath('../posts'), fileName),
+      path.join(getPath('posts'), fileName),
       'utf8'
     );
     const { data: frontMatter, content } = matter(rawPostContent);
