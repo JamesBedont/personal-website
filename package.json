@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/JamesBedont/personal-website#readme",
   "dependencies": {
+    "feed": "^4.1.0",
     "gray-matter": "^4.0.2",
+    "marked": "^0.8.0",
     "next": "^9.2.0",
     "normalize.css": "^8.0.1",
     "prismjs": "^1.19.0",
