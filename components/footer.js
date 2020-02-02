@@ -1,11 +1,11 @@
 const Footer = () => {
   return (
     <footer className='footer'>
-      <a href='/'>Github</a>
+      <a href='https://github.com/JamesBedont'>Github</a>
       <span className='footer-text-separator'>•</span>
-      <a href='/about'>Linkedin</a>
+      <a href='https://www.linkedin.com/in/jamesbedont/'>Linkedin</a>
       <span className='footer-text-separator'>•</span>
-      <a href='/archive'>Twitter</a>
+      <a href='https://twitter.com/JamesBedont'>Twitter</a>
     </footer>
   );
 };
