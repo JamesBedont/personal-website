@@ -30,10 +30,10 @@ export default (req, res) => {
 
   feed.addCategory('Software Development');
 
-  const posts = fs.readdirSync(getPath('posts'));
+  const posts = fs.readdirSync(getPath('../posts'));
   posts.map(fileName => {
     const rawPostContent = fs.readFileSync(
-      path.join(getPath('posts'), fileName),
+      path.join(getPath('../posts'), fileName),
       'utf8'
     );
     const { data: frontMatter, content } = matter(rawPostContent);
