@@ -2,9 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-  serverRuntimeConfig: {
-    PROJECT_ROOT: __dirname
-  },
   webpack: function(config) {
     config.module.rules.push({
       test: /\.md$/,

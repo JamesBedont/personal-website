@@ -2,10 +2,11 @@ import { Feed } from 'feed';
 import matter from 'gray-matter';
 import * as fs from 'fs';
 import * as path from 'path';
-import getConfig from 'next/config';
 import * as marked from 'marked';
+import * as process from 'process';
 
-const { serverRuntimeConfig } = getConfig();
+// https://github.com/prisma/prisma2/issues/1021#issuecomment-568511284
+const getPath = pathName => path.join(process.cwd(), pathName);
 
 export default (req, res) => {
   const feed = new Feed({
@@ -29,12 +30,10 @@ export default (req, res) => {
 
   feed.addCategory('Software Development');
 
-  const posts = fs.readdirSync(
-    path.join(serverRuntimeConfig.PROJECT_ROOT, 'posts')
-  );
+  const posts = fs.readdirSync(getPath('posts'));
   posts.map(fileName => {
     const rawPostContent = fs.readFileSync(
-      path.join(serverRuntimeConfig.PROJECT_ROOT, 'posts', fileName),
+      path.join(getPath('posts'), fileName),
       'utf8'
     );
     const { data: frontMatter, content } = matter(rawPostContent);
