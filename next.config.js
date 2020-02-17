@@ -15,16 +15,7 @@ module.exports = {
   ) {
     const posts = fs.readdirSync(path.join(__dirname, 'posts'));
 
-    const postConfiguration = posts.reduce((config, postFileName) => {
-      const titleAsFileName = postFileName.replace(/\.md/g, '');
-      return {
-        ...config,
-        [`/${titleAsFileName}`]: {
-          page: '/[slug]',
-          query: { slug: titleAsFileName }
-        }
-      };
-    }, {});
+    const postConfiguration = generatePostConfiguration(posts);
 
     return {
       ...postConfiguration,
@@ -33,4 +24,17 @@ module.exports = {
       '/projects': { page: '/projects' }
     };
   }
+};
+
+const generatePostConfiguration = posts => {
+  return posts.reduce((config, postFileName) => {
+    const titleAsFileName = postFileName.replace(/\.md/g, '');
+    return {
+      ...config,
+      [`/${titleAsFileName}`]: {
+        page: '/[slug]',
+        query: { slug: titleAsFileName }
+      }
+    };
+  }, {});
 };
