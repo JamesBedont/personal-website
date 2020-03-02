@@ -1,5 +1,9 @@
 {
   "version": 2,
+  "env": {
+    "POCKETCASTS_EMAIL": "@pocketcasts-email",
+    "POCKETCASTS_PASSWORD": "@pocketcasts-password"
+  },
   "redirects": [{
       "source": "/feed",
       "destination": "/api/feed"
