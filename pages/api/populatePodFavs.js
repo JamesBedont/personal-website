@@ -1,21 +1,126 @@
 const chrome = require('chrome-aws-lambda');
+const fetch = require('node-fetch');
+const MongoClient = require('mongodb').MongoClient;
 
-const pocketCastsLoginPage = 'https://play.pocketcasts.com/user/login';
+// Connection URL
+const url = 'mongodb://localhost:27017';
 
-const emailInputSelector = 'input[type=email]';
-const passwordInputSelector = 'input[type=password]';
-const submitBtnSelector = 'button[type=submit]';
-const authTokenStorageKey = 'token';
-
-const username = process.env.POCKETCASTS_EMAIL;
-const password = process.env.POCKETCASTS_PASSWORD;
+// Database Name
+const dbName = 'myproject';
 
 module.exports = async (req, res) => {
-  const browser = await chrome.puppeteer.launch({
+  const browserConfig = await getChromeLaunchConfig();
+  const browser = await chrome.puppeteer.launch(browserConfig);
+  const authToken = await getAuthToken(browser);
+  const podcasts = await getStarredPodcasts(authToken);
+
+  res.json(podcasts);
+};
+
+const getStarredPodcasts = async authToken => {
+  const { episodes } = await sendRequest(
+    'POST',
+    'https://api.pocketcasts.com/user/starred',
+    null,
+    authToken
+  );
+  const podcasts = [];
+
+  for (let i = 0; i < episodes.length; i++) {
+    const ep = episodes[i];
+    const podcastUuid = ep.podcastUuid;
+    const podcastIndex = podcasts.findIndex(pod => pod.uuid === podcastUuid);
+    let podcast;
+
+    if (podcastIndex === -1) {
+      const { podcastTitle } = await sendRequest(
+        'POST',
+        'https://api.pocketcasts.com/user/episode',
+        { uuid: ep.uuid },
+        authToken
+      );
+
+      podcast = {
+        uuid: podcastUuid,
+        title: podcastTitle,
+        episodes: []
+      };
+    } else {
+      podcast = podcasts[podcastIndex];
+    }
+
+    const { url: shareLink } = await sendRequest(
+      'POST',
+      'https://api.pocketcasts.com/podcasts/share_link',
+      {
+        episode: ep.uuid,
+        podcast: ep.podcastUuid
+      },
+      authToken
+    );
+
+    podcast.episodes.push({
+      uuid: ep.uuid,
+      published: ep.published,
+      title: ep.title,
+      shareLink,
+      imageUrl: `https://static.pocketcasts.com/discover/images/webp/200/${podcastUuid}.webp`
+    });
+
+    if (podcastIndex === -1) {
+      podcasts.push(podcast);
+    } else {
+      podcasts[podcastIndex] = podcast;
+    }
+  }
+
+  return podcasts;
+};
+
+const sendRequest = (method, url, body, authToken) => {
+  return fetch(url, {
+    method,
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: body ? JSON.stringify(body) : null
+  }).then(res => res.json());
+};
+
+const getChromeLaunchConfig = async () => {
+  if (process.env.NODE_ENV !== 'production') {
+    return {
+      args: [
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-setuid-sandbox',
+        '--no-first-run',
+        '--no-sandbox',
+        '--no-zygote',
+        '--single-process'
+      ],
+      headless: true
+    };
+  }
+
+  return {
     args: chrome.args,
     executablePath: await chrome.executablePath,
     headless: chrome.headless
-  });
+  };
+};
+
+const getAuthToken = async browser => {
+  const pocketCastsLoginPage = 'https://play.pocketcasts.com/user/login';
+
+  const emailInputSelector = 'input[type=email]';
+  const passwordInputSelector = 'input[type=password]';
+  const submitBtnSelector = 'button[type=submit]';
+  const authTokenStorageKey = 'token';
+
+  const username = process.env.POCKETCASTS_EMAIL;
+  const password = process.env.POCKETCASTS_PASSWORD;
 
   const page = await browser.newPage();
 
@@ -25,69 +130,11 @@ module.exports = async (req, res) => {
   await page.click(submitBtnSelector);
   await page.waitForNavigation();
 
-  const enhancedEpisodes = await page.evaluate(async authTokenStorageKey => {
-    const authToken = localStorage.getItem(authTokenStorageKey);
-
-    const res = await Promise.all([
-      fetch('https://api.pocketcasts.com/user/starred', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }).then(res => res.json()),
-      fetch('https://api.pocketcasts.com/user/podcast/list', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        },
-        body: {
-          v: 1
-        }
-      }).then(res => res.json())
-    ]);
-
-    const [{ episodes }, { podcasts }] = res;
-    const enhancedEpisodes = await Promise.all(
-      episodes.map(async ep => {
-        const podcast = podcasts.find(pod => pod.uuid === ep.podcastUuid);
-
-        const { url: shareLink } = await fetch(
-          'https://api.pocketcasts.com/podcasts/share_link',
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${authToken}`
-            },
-            body: JSON.stringify({
-              episode: ep.uuid,
-              podcast: ep.podcastUuid
-            })
-          }
-        ).then(res => res.json());
-
-        let enhancedEpisode = {
-          uuid: ep.uuid,
-          published: ep.published,
-          title: ep.title,
-          podcastUuid: ep.podcastUuid,
-          shareLink,
-          imageUrl: `https://static.pocketcasts.com/discover/images/webp/200/${ep.podcastUuid}.webp`
-        };
-
-        if (podcast) {
-          enhancedEpisode = Object.assign(enhancedEpisode, {
-            podcastTitle: podcast.title,
-            podcastAuthor: podcast.author,
-            podcastUrl: podcast.url
-          });
-        }
-
-        return enhancedEpisode;
-      })
-    );
-    return enhancedEpisodes;
-  }, authTokenStorageKey);
+  const authToken = await page.evaluate(
+    async authTokenStorageKey => localStorage.getItem(authTokenStorageKey),
+    authTokenStorageKey
+  );
 
   await browser.close();
-  res.send(JSON.stringify(enhancedEpisodes, null, 2));
+  return authToken;
 };
