@@ -8,7 +8,6 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "now-build": "npm run build:static",
     "build:static": "npm run build && npm run export",
     "test:static": "npm run build:static && http-server out",
     "test": "echo \"Error: no test specified\" && exit 1"

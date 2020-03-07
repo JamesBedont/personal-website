@@ -2,19 +2,30 @@ const chrome = require('chrome-aws-lambda');
 const fetch = require('node-fetch');
 const MongoClient = require('mongodb').MongoClient;
 
-// Connection URL
-const url = 'mongodb://localhost:27017';
-
-// Database Name
-const dbName = 'myproject';
-
 module.exports = async (req, res) => {
-  const browserConfig = await getChromeLaunchConfig();
-  const browser = await chrome.puppeteer.launch(browserConfig);
-  const authToken = await getAuthToken(browser);
-  const podcasts = await getStarredPodcasts(authToken);
+  try {
+    const browserConfig = await getChromeLaunchConfig();
+    const browser = await chrome.puppeteer.launch(browserConfig);
+    const authToken = await getAuthToken(browser);
+    const podcasts = await getStarredPodcasts(authToken);
+    await storePodcasts(podcasts);
 
-  res.json(podcasts);
+    res.json(podcasts);
+  } catch (error) {
+    res.status(500).json({ message: error.toString() });
+  }
+};
+
+const storePodcasts = async podcasts => {
+  const connectionString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xpele.mongodb.net/test?retryWrites=true&w=majority`;
+  const client = new MongoClient(connectionString, {
+    useUnifiedTopology: true
+  });
+
+  await client.connect();
+  const db = client.db('personal-website');
+  await db.collection('podcasts').deleteMany({});
+  return db.collection('podcasts').insertMany(podcasts);
 };
 
 const getStarredPodcasts = async authToken => {
