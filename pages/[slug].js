@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 
-const PostPage = ({ postMarkdown, title, date }) => {
+const PostPage = ({ postMarkdown, title, date, description }) => {
   useEffect(() => {
     window.Prism.highlightAll();
   }, []);
 
   return (
-    <Layout title={title}>
+    <Layout title={title} description={description}>
       <article>
         <h1>{title}</h1>
         <p className='post-date'>{date}</p>
@@ -23,7 +23,8 @@ const PostPage = ({ postMarkdown, title, date }) => {
 PostPage.propTypes = {
   postMarkdown: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired
+  date: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 PostPage.getInitialProps = async context => {
@@ -41,6 +42,7 @@ PostPage.getInitialProps = async context => {
   return {
     postMarkdown: content,
     title: frontMatter.title,
+    description: frontMatter.description,
     date
   };
 };

@@ -1,6 +1,7 @@
 ---
 title: Introduction to Google Maps API Featuring ES6 Promises
 date: 03/23/2016
+description: Introduction to Google Maps API Featuring ES6 Promises
 ---
 
 The Google Maps API has a multitude of services that need to be sown together to accomplish anything meaningful and can be initially intimidating. This post will walk through the creation of a location finder app powered by Google Maps and Google Places while shedding light on the most important services and their functionality. ES6 Promises will be used throughout this post; for those reading this without a complete understanding of promises refer to this fantastic blog post: [JavaScript Promises There and back again](http://www.html5rocks.com/en/tutorials/es6/promises/) by Jake Archibald. Familiarity with Q or jQuery's promises will transfer over. For those who haven't fully grasped asynchronous JavaScript programming I would highly recommend [Are you bad, good, better or best with Async JS? JS Tutorial: Callbacks, Promises, Generators](https://www.youtube.com/watch?v=obaSQBBWZLk) by LearnCode.academy on Youtube.

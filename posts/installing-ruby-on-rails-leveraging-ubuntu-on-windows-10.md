@@ -1,6 +1,7 @@
 ---
-title: 'Installing Ruby on Rails Leveraging Ubuntu on Windows 10'
+title: Installing Ruby on Rails Leveraging Ubuntu on Windows 10
 date: 07/23/2017
+description: Installing Ruby on Rails Leveraging Ubuntu on Windows 10
 ---
 
 ### Background

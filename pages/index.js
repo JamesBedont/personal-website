@@ -5,7 +5,11 @@ import Layout from '../components/layout';
 
 const HomePage = ({ posts }) => {
   const postElements = posts.map((post, idx) => <Post key={idx} {...post} />);
-  return <Layout title='Writing'>{postElements}</Layout>;
+  return (
+    <Layout title='Writing' description={"James Bedont's writings"}>
+      {postElements}
+    </Layout>
+  );
 };
 
 HomePage.propTypes = {
