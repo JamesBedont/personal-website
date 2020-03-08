@@ -17,6 +17,10 @@
     {
       "source": "/2016/03/23/GoogleMapsApiIntroduction.html",
       "destination": "/introduction-to-google-maps-api-featuring-es6-promises"
+    },
+    {
+      "source": "/feed",
+      "destination": "/feed.xml"
     }
   ]
 }

@@ -5,3 +5,4 @@ out/
 .now
 .env
 .env.build
+public/feed.xml
