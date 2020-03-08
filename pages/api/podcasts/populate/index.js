@@ -27,10 +27,10 @@ module.exports = async (req, res) => {
     const podcasts = await getStarredPodcasts(authToken);
     await storePodcasts(db, podcasts);
 
-    res.json(podcasts);
+    return res.json(podcasts);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.toString() });
+    return res.status(500).json({ message: error.toString() });
   }
 };
 

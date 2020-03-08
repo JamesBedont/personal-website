@@ -14,8 +14,8 @@ module.exports = async (req, res) => {
       .find({})
       .toArray();
 
-    res.json(podcasts);
+    return res.json(podcasts);
   } catch (error) {
-    res.status(500).json({ message: error.toString() });
+    return res.status(500).json({ message: error.toString() });
   }
 };
