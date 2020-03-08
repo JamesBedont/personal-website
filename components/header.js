@@ -9,7 +9,11 @@ const Header = () => {
     <header>
       <div id='title-wrapper'>
         <Link href='/'>
-          <img src='/headshot.jpeg' id='headshot' />
+          <img
+            src='/headshot.jpeg'
+            id='headshot'
+            alt='headshot of james bedont'
+          />
         </Link>
         <div id='title-text'>
           <h1 id='name'>James Bedont</h1>
