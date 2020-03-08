@@ -4,7 +4,7 @@ import Footer from '../components/footer';
 import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const Layout = ({ children, title = 'James Bedont' }) => {
+const Layout = ({ children, title = 'James Bedont', description }) => {
   const script = {
     __html:
       "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-58212740-2');"
@@ -22,6 +22,7 @@ const Layout = ({ children, title = 'James Bedont' }) => {
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <link rel='shortcut icon' type='image/x-icon' href='/favicon.png' />
+        <meta name='Description' content={description} />
       </Head>
       <Header />
 
@@ -33,7 +34,8 @@ const Layout = ({ children, title = 'James Bedont' }) => {
 };
 
 Layout.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 export default Layout;

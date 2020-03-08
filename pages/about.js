@@ -10,7 +10,7 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <Layout title={'About'}>
+    <Layout title={'About'} description={'about James Bedont'}>
       <UnderConstruction />
     </Layout>
   );

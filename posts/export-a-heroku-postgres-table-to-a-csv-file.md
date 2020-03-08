@@ -1,6 +1,7 @@
 ---
 title: Export a Heroku Postgres table to a csv file
 date: 08/21/2016
+description: Export a Heroku Postgres table to a csv file
 ---
 
 This post will be a walk through of how to export a Heroku PostgreSQL database, table, or query to a `.csv` file. Its worth noting that if the goal is to export Heroku's database and import it into another (like localhost) there is documentation for that in [Heroku's dev center](https://devcenter.heroku.com/articles/heroku-postgres-import-export).
