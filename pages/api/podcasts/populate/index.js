@@ -1,29 +1,73 @@
 const chrome = require('chrome-aws-lambda');
 const fetch = require('node-fetch');
 const MongoClient = require('mongodb').MongoClient;
+const jwtDecode = require('jwt-decode');
 
 module.exports = async (req, res) => {
   try {
+    const connectionString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xpele.mongodb.net/test?retryWrites=true&w=majority`;
+    const client = new MongoClient(connectionString, {
+      useUnifiedTopology: true
+    });
+    await client.connect();
+    const db = client.db('personal-website');
+
+    const { shouldScrape, jwt } = await checkToken(db);
+
+    if (!shouldScrape) {
+      const podcasts = await getStarredPodcasts(jwt);
+      await storePodcasts(db, podcasts);
+
+      return res.json(podcasts);
+    }
+
     const browserConfig = await getChromeLaunchConfig();
     const browser = await chrome.puppeteer.launch(browserConfig);
-    const authToken = await getAuthToken(browser);
+    const authToken = await getAuthToken(db, browser);
     const podcasts = await getStarredPodcasts(authToken);
-    await storePodcasts(podcasts);
+    await storePodcasts(db, podcasts);
 
     res.json(podcasts);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.toString() });
   }
 };
 
-const storePodcasts = async podcasts => {
-  const connectionString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xpele.mongodb.net/test?retryWrites=true&w=majority`;
-  const client = new MongoClient(connectionString, {
-    useUnifiedTopology: true
-  });
+const checkToken = async db => {
+  try {
+    const document = await db
+      .collection('authToken')
+      .find({})
+      .toArray();
 
-  await client.connect();
-  const db = client.db('personal-website');
+    const jwt = document[0].jwt;
+    const now = (current_time = Date.now() / 1000);
+    const decoded = jwtDecode(jwt);
+
+    if (decoded.exp > now) {
+      return {
+        shouldScrape: false,
+        jwt
+      };
+    }
+
+    await db.collection('authToken').deleteMany({});
+
+    return {
+      shouldScrape: true,
+      jwt: null
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      shouldScrape: true,
+      jwt: null
+    };
+  }
+};
+
+const storePodcasts = async (db, podcasts) => {
   await db.collection('podcasts').deleteMany({});
   return db.collection('podcasts').insertMany(podcasts);
 };
@@ -72,6 +116,7 @@ const getStarredPodcasts = async authToken => {
       podcast = {
         uuid: podcastUuid,
         title: enhancedEp.podcastTitle,
+        imageUrl: `https://static.pocketcasts.com/discover/images/webp/200/${podcastUuid}.webp`,
         episodes: []
       };
     } else {
@@ -82,8 +127,7 @@ const getStarredPodcasts = async authToken => {
       uuid: enhancedEp.episodeUuid,
       published: enhancedEp.published,
       title: enhancedEp.episodeTitle,
-      shareLink: enhancedEp.shareLink,
-      imageUrl: `https://static.pocketcasts.com/discover/images/webp/200/${podcastUuid}.webp`
+      shareLink: enhancedEp.shareLink
     });
 
     if (podcastIndex === -1) {
@@ -130,7 +174,7 @@ const getChromeLaunchConfig = async () => {
   };
 };
 
-const getAuthToken = async browser => {
+const getAuthToken = async (db, browser) => {
   const pocketCastsLoginPage = 'https://play.pocketcasts.com/user/login';
 
   const emailInputSelector = 'input[type=email]';
@@ -155,5 +199,9 @@ const getAuthToken = async browser => {
   );
 
   await browser.close();
+
+  await db.collection('authToken').deleteMany({});
+  await db.collection('authToken').insertOne({ jwt: authToken });
+
   return authToken;
 };
