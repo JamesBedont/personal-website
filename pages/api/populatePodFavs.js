@@ -29,52 +29,60 @@ const storePodcasts = async podcasts => {
 };
 
 const getStarredPodcasts = async authToken => {
-  const { episodes } = await sendRequest(
+  let { episodes } = await sendRequest(
     'POST',
     'https://api.pocketcasts.com/user/starred',
     null,
     authToken
   );
-  const podcasts = [];
-
-  for (let i = 0; i < episodes.length; i++) {
-    const ep = episodes[i];
-    const podcastUuid = ep.podcastUuid;
+  const fullDataPromise = episodes.map(ep => {
+    return sendRequest(
+      'POST',
+      'https://api.pocketcasts.com/user/episode',
+      { uuid: ep.uuid },
+      authToken
+    ).then(({ podcastTitle, published, title }) => {
+      return sendRequest(
+        'POST',
+        'https://api.pocketcasts.com/podcasts/share_link',
+        {
+          episode: ep.uuid,
+          podcast: ep.podcastUuid
+        },
+        authToken
+      ).then(({ url: shareLink }) => {
+        return {
+          episodeUuid: ep.uuid,
+          podcastUuid: ep.podcastUuid,
+          podcastTitle,
+          episodeTitle: title,
+          published,
+          shareLink
+        };
+      });
+    });
+  });
+  const enhancedData = await Promise.all(fullDataPromise);
+  return enhancedData.reduce((podcasts, enhancedEp) => {
+    const podcastUuid = enhancedEp.podcastUuid;
     const podcastIndex = podcasts.findIndex(pod => pod.uuid === podcastUuid);
     let podcast;
 
     if (podcastIndex === -1) {
-      const { podcastTitle } = await sendRequest(
-        'POST',
-        'https://api.pocketcasts.com/user/episode',
-        { uuid: ep.uuid },
-        authToken
-      );
-
       podcast = {
         uuid: podcastUuid,
-        title: podcastTitle,
+        title: enhancedEp.podcastTitle,
         episodes: []
       };
     } else {
       podcast = podcasts[podcastIndex];
     }
 
-    const { url: shareLink } = await sendRequest(
-      'POST',
-      'https://api.pocketcasts.com/podcasts/share_link',
-      {
-        episode: ep.uuid,
-        podcast: ep.podcastUuid
-      },
-      authToken
-    );
-
     podcast.episodes.push({
-      uuid: ep.uuid,
-      published: ep.published,
-      title: ep.title,
-      shareLink,
+      uuid: enhancedEp.episodeUuid,
+      published: enhancedEp.published,
+      title: enhancedEp.episodeTitle,
+      shareLink: enhancedEp.shareLink,
       imageUrl: `https://static.pocketcasts.com/discover/images/webp/200/${podcastUuid}.webp`
     });
 
@@ -83,9 +91,9 @@ const getStarredPodcasts = async authToken => {
     } else {
       podcasts[podcastIndex] = podcast;
     }
-  }
 
-  return podcasts;
+    return podcasts;
+  }, []);
 };
 
 const sendRequest = (method, url, body, authToken) => {
