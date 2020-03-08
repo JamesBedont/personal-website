@@ -14,7 +14,16 @@ const PostPage = ({ postMarkdown, title, date, description }) => {
       <article>
         <h1>{title}</h1>
         <p className='post-date'>{date}</p>
-        <ReactMarkdown>{postMarkdown}</ReactMarkdown>
+        <ReactMarkdown
+          source={postMarkdown}
+          renderers={{
+            link: props => (
+              <a href={props.href} rel='noopener'>
+                {props.children}
+              </a>
+            )
+          }}
+        />
       </article>
     </Layout>
   );
