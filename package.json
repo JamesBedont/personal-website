@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "babel-plugin-prismjs": "^2.0.1",
-    "puppeteer": "^2.1.1",
-    "raw-loader": "^4.0.0"
+    "puppeteer": "^2.1.1"
   }
 }

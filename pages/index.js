@@ -2,6 +2,8 @@ import matter from 'gray-matter';
 import Post from '../components/post';
 import PropTypes from 'prop-types';
 import Layout from '../components/layout';
+import fs from 'fs';
+import path from 'path';
 
 const HomePage = ({ posts }) => {
   const postElements = posts.map((post, idx) => <Post key={idx} {...post} />);
@@ -22,11 +24,16 @@ HomePage.propTypes = {
   ).isRequired
 };
 
-HomePage.getInitialProps = async function() {
-  const allPostsFrontMatter = (context => {
-    const postRelFilePaths = context.keys();
-    return postRelFilePaths.map(postRelFilePath => {
-      const { default: fileContents } = context(postRelFilePath);
+export async function getStaticProps() {
+  const posts = fs
+    .readdirSync('/Users/jamesbedont/Documents/personal-website/posts/')
+    .map(postFileName => {
+      const fileContents = fs.readFileSync(
+        path.join(
+          `/Users/jamesbedont/Documents/personal-website/posts/${postFileName}`
+        ),
+        { encoding: 'utf8' }
+      );
       const { data: frontMatter } = matter(fileContents);
 
       const date = new Intl.DateTimeFormat('en-US', {
@@ -43,13 +50,14 @@ HomePage.getInitialProps = async function() {
         date
       };
     });
-  })(require.context('../posts', true, /\.md$/));
 
-  allPostsFrontMatter.sort((a, b) => new Date(b.date) - new Date(a.date));
+  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return {
-    posts: allPostsFrontMatter
+    props: {
+      posts
+    }
   };
-};
+}
 
 export default HomePage;
