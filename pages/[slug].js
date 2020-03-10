@@ -38,8 +38,8 @@ PostPage.propTypes = {
   description: PropTypes.string.isRequired
 };
 
-// This function gets called at build time
 export async function getStaticPaths() {
+  console.log(fs.readdirSync(__dirname));
   const posts = fs.readdirSync(
     '/Users/jamesbedont/Documents/personal-website/posts'
   );
@@ -55,7 +55,6 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-// This also gets called at build time
 export async function getStaticProps({ params }) {
   const titleAsFileName = params.slug;
 
