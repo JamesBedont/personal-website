@@ -39,7 +39,7 @@ PostPage.propTypes = {
 };
 
 export async function getStaticPaths() {
-  console.log(fs.readdirSync(__dirname));
+  console.log(fs.readdirSync(path.join(__dirname, 'var')));
   const posts = fs.readdirSync(
     '/Users/jamesbedont/Documents/personal-website/posts'
   );
