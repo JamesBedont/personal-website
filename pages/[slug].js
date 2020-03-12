@@ -3,6 +3,8 @@ import matter from 'gray-matter';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
+import fs from 'fs';
+import path from 'path';
 
 const PostPage = ({ postMarkdown, title, date, description }) => {
   useEffect(() => {
@@ -36,11 +38,30 @@ PostPage.propTypes = {
   description: PropTypes.string.isRequired
 };
 
-PostPage.getInitialProps = async context => {
-  const titleAsFileName = context.query.slug;
+export async function getStaticPaths() {
+  const posts = fs.readdirSync(
+    path.join(process.cwd(), 'posts')
+  );
 
-  const post = await import(`../posts/${titleAsFileName}.md`);
-  const { content, data: frontMatter } = matter(post.default);
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.map(post => {
+    const titleAsFileName = post.replace(/\.md/g, '');
+    return `/${titleAsFileName}`;
+  });
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const titleAsFileName = params.slug;
+
+  const post = fs.readFileSync(
+    path.join(process.cwd(), 'posts', `${titleAsFileName}.md`),
+    { encoding: 'utf8' }
+  );
+  const { content, data: frontMatter } = matter(post);
 
   const date = new Intl.DateTimeFormat('en-US', {
     month: 'long',
@@ -49,11 +70,13 @@ PostPage.getInitialProps = async context => {
   }).format(new Date(frontMatter.date));
 
   return {
-    postMarkdown: content,
-    title: frontMatter.title,
-    description: frontMatter.description,
-    date
+    props: {
+      postMarkdown: content,
+      title: frontMatter.title,
+      description: frontMatter.description,
+      date
+    }
   };
-};
+}
 
 export default PostPage;
