@@ -39,9 +39,8 @@ PostPage.propTypes = {
 };
 
 export async function getStaticPaths() {
-  console.log(fs.readdirSync(path.join(__dirname, 'var')));
   const posts = fs.readdirSync(
-    '/Users/jamesbedont/Documents/personal-website/posts'
+    path.join(process.cwd(), 'posts')
   );
 
   // Get the paths we want to pre-render based on posts
@@ -59,7 +58,7 @@ export async function getStaticProps({ params }) {
   const titleAsFileName = params.slug;
 
   const post = fs.readFileSync(
-    `/Users/jamesbedont/Documents/personal-website/posts/${titleAsFileName}.md`,
+    path.join(process.cwd(), 'posts', `${titleAsFileName}.md`),
     { encoding: 'utf8' }
   );
   const { content, data: frontMatter } = matter(post);

@@ -26,12 +26,10 @@ HomePage.propTypes = {
 
 export async function getStaticProps() {
   const posts = fs
-    .readdirSync('/Users/jamesbedont/Documents/personal-website/posts/')
+    .readdirSync(path.join(process.cwd(), 'posts'))
     .map(postFileName => {
       const fileContents = fs.readFileSync(
-        path.join(
-          `/Users/jamesbedont/Documents/personal-website/posts/${postFileName}`
-        ),
+        path.join(process.cwd(), 'posts', `${postFileName}`),
         { encoding: 'utf8' }
       );
       const { data: frontMatter } = matter(fileContents);
