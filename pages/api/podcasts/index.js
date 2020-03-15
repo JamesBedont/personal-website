@@ -1,18 +1,18 @@
-const MongoClient = require('mongodb').MongoClient;
+const AWS = require('aws-sdk');
+const util = require('util');
+
+AWS.config.update({
+  region: 'us-east-1',
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 
 module.exports = async (req, res) => {
   try {
-    const connectionString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xpele.mongodb.net/test?retryWrites=true&w=majority`;
-    const client = new MongoClient(connectionString, {
-      useUnifiedTopology: true
-    });
+    const docClient = new AWS.DynamoDB.DocumentClient();
+    const scan = util.promisify(docClient.scan).bind(docClient);
 
-    await client.connect();
-    const db = client.db('personal-website');
-    const podcasts = await db
-      .collection('podcasts')
-      .find({})
-      .toArray();
+    const podcasts = await scan({ TableName: 'Podcasts' });
 
     return res.json(podcasts);
   } catch (error) {
