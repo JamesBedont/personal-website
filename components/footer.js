@@ -12,6 +12,10 @@ const Footer = () => {
       <a href='https://twitter.com/JamesBedont' rel='noopener'>
         Twitter
       </a>
+      <span className='footer-text-separator'>•</span>
+      <a href='/feed' rel='noopener'>
+        RSS
+      </a>
     </footer>
   );
 };
