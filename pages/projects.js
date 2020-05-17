@@ -1,5 +1,5 @@
-import UnderConstruction from '../components/underConstruction';
-import Layout from '../components/layout';
+import UnderConstruction from 'components/underConstruction';
+import Layout from 'components/layout';
 
 const ProjectsPage = () => {
   return (

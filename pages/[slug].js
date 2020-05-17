@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import matter from 'gray-matter';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
-import Layout from '../components/layout';
+import Layout from 'components/layout';
 import fs from 'fs';
 import path from 'path';
 
@@ -19,11 +19,11 @@ const PostPage = ({ postMarkdown, title, date, description }) => {
         <ReactMarkdown
           source={postMarkdown}
           renderers={{
-            link: props => (
+            link: (props) => (
               <a href={props.href} rel='noopener'>
                 {props.children}
               </a>
-            )
+            ),
           }}
         />
       </article>
@@ -35,16 +35,14 @@ PostPage.propTypes = {
   postMarkdown: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired,
 };
 
 export async function getStaticPaths() {
-  const posts = fs.readdirSync(
-    path.join(process.cwd(), 'posts')
-  );
+  const posts = fs.readdirSync(path.join(process.cwd(), 'posts'));
 
   // Get the paths we want to pre-render based on posts
-  const paths = posts.map(post => {
+  const paths = posts.map((post) => {
     const titleAsFileName = post.replace(/\.md/g, '');
     return `/${titleAsFileName}`;
   });
@@ -66,7 +64,7 @@ export async function getStaticProps({ params }) {
   const date = new Intl.DateTimeFormat('en-US', {
     month: 'long',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
   }).format(new Date(frontMatter.date));
 
   return {
@@ -74,8 +72,8 @@ export async function getStaticProps({ params }) {
       postMarkdown: content,
       title: frontMatter.title,
       description: frontMatter.description,
-      date
-    }
+      date,
+    },
   };
 }
 

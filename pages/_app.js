@@ -1,5 +1,5 @@
 import 'normalize.css';
-import '../styles.css';
+import 'styles.css';
 import Prism from 'prismjs';
 
 const MyApp = ({ Component, pageProps }) => {
