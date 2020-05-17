@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
-import matter from 'gray-matter';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
-import Layout from '../components/layout';
-import fs from 'fs';
-import path from 'path';
+import Layout from 'components/layout';
+import { getPostBySlug, getAllPosts } from 'lib/pageService';
 
-const PostPage = ({ postMarkdown, title, date, description }) => {
+const PostPage = ({ content, title, date, description }) => {
   useEffect(() => {
     window.Prism.highlightAll();
   }, []);
@@ -17,13 +15,13 @@ const PostPage = ({ postMarkdown, title, date, description }) => {
         <h1>{title}</h1>
         <p className='post-date'>{date}</p>
         <ReactMarkdown
-          source={postMarkdown}
+          source={content}
           renderers={{
-            link: props => (
+            link: (props) => (
               <a href={props.href} rel='noopener'>
                 {props.children}
               </a>
-            )
+            ),
           }}
         />
       </article>
@@ -32,50 +30,28 @@ const PostPage = ({ postMarkdown, title, date, description }) => {
 };
 
 PostPage.propTypes = {
-  postMarkdown: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired,
 };
 
 export async function getStaticPaths() {
-  const posts = fs.readdirSync(
-    path.join(process.cwd(), 'posts')
-  );
-
-  // Get the paths we want to pre-render based on posts
-  const paths = posts.map(post => {
-    const titleAsFileName = post.replace(/\.md/g, '');
-    return `/${titleAsFileName}`;
+  const posts = getAllPosts().map((post) => {
+    return `/${post.slug}`;
   });
 
-  // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths: posts, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const titleAsFileName = params.slug;
-
-  const post = fs.readFileSync(
-    path.join(process.cwd(), 'posts', `${titleAsFileName}.md`),
-    { encoding: 'utf8' }
-  );
-  const { content, data: frontMatter } = matter(post);
-
-  const date = new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric'
-  }).format(new Date(frontMatter.date));
+  const post = getPostBySlug(params.slug);
 
   return {
     props: {
-      postMarkdown: content,
-      title: frontMatter.title,
-      description: frontMatter.description,
-      date
-    }
+      ...post,
+    },
   };
 }
 
