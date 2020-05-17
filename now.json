@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "env": {
-    "POCKETCASTS_EMAIL": "@pocketcasts-email",
-    "POCKETCASTS_PASSWORD": "@pocketcasts-password",
-    "JBEDONT_AWS_ACCESS_KEY_ID": "@jbedont-aws-access-key-id",
-    "JBEDONT_AWS_SECRET_ACCESS_KEY": "@jbedont-aws-secret-access-key"
-  },
   "redirects": [{
       "source": "/2017/07/23/installing-ruby-on-rails-leveraging-ubuntu-on-windows-10.html",
       "destination": "/installing-ruby-on-rails-leveraging-ubuntu-on-windows-10"
