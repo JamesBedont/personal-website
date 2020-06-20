@@ -6,3 +6,4 @@ out/
 .env
 .env.build
 public/feed.xml
+public/feed.json
