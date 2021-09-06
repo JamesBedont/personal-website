@@ -28,11 +28,11 @@
     "feed": "4.1.0",
     "gray-matter": "4.0.2",
     "marked": "0.8.0",
-    "next": "10.0.4",
+    "next": "^11.1.2",
     "normalize.css": "8.0.1",
-    "prismjs": "1.23.0",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
-    "react-markdown": "4.3.1"
+    "prismjs": "^1.24.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-markdown": "^7.0.1"
   }
 }

@@ -15,9 +15,9 @@ const PostPage = ({ content, title, date, description }) => {
         <h1>{title}</h1>
         <p className='post-date'>{date}</p>
         <ReactMarkdown
-          source={content}
-          renderers={{
-            link: (props) => (
+          children={content}
+          components={{
+            a: (props) => (
               <a href={props.href} rel='noopener'>
                 {props.children}
               </a>
