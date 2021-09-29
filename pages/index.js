@@ -22,6 +22,8 @@ HomePage.propTypes = {
   ).isRequired,
 };
 
+export const config = { unstable_runtimeJS: false}
+
 export function getStaticProps() {
   return {
     props: {

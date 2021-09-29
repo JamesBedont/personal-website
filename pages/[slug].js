@@ -45,6 +45,8 @@ export async function getStaticPaths() {
   return { paths: posts, fallback: false };
 }
 
+export const config = { unstable_runtimeJS: false}
+
 export async function getStaticProps({ params }) {
   const post = getPostBySlug(params.slug);
 
