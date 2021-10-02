@@ -10,7 +10,7 @@ const Header = () => {
       <div id='title-wrapper'>
         <Link href='/'>
           <img
-            src='/headshot.jpeg'
+            src='/headshot.webp'
             id='headshot'
             alt='headshot of james bedont'
           />

@@ -11,7 +11,7 @@ const feed = new Feed({
   id: 'https://jamesbedont.com/',
   link: 'https://jamesbedont.com/',
   language: 'en',
-  image: 'https://jamesbedont.com/headshot.jpeg',
+  image: 'https://jamesbedont.com/headshot.webp',
   favicon: 'https://jamesbedont.com/favicon.webp',
   copyright: `All rights reserved ${new Date().getFullYear()}, James Bedont`,
   author,
