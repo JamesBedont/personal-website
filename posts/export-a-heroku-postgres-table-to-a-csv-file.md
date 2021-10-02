@@ -64,16 +64,16 @@ The first step is to add a new postgres server by going to `file > add server...
 
 Under the `Properties` tab match the information with the Heroku connection settings page of the app discussed at the top of the post.
 
-![properties tab settings](/pgexport/properties_tab.png)
+![properties tab settings](/pgexport/properties_tab.webp)
 
 Under the `Advanced` tab add a `DB restriction` of the database surronded by single quotes. Heroku hosts many postgres databases on a given server; without adding a restriction all databases will be shown and make it hard to connect to the right one.
 
-![advanced tab settings](/pgexport/advanced_tab.png)
+![advanced tab settings](/pgexport/advanced_tab.webp)
 
 Upon connecting to the server select the database name from the Hierarchical menu on the left and side of the UI. to run a query pull up the `Query Tool` by going to `tools > query tool`.
 
-![query tool](/pgexport/query_tool.png)
+![query tool](/pgexport/query_tool.webp)
 
 The highlighted button will run the query then write the results to a file. Any query can be exported to a file and to export an entire table run the following query: `SELECT * FROM table`. Make sure to append the filename with the `.csv` extension.
 
-![export data settings](/pgexport/export_settings.png)
+![export data settings](/pgexport/export_settings.webp)
