@@ -12,7 +12,7 @@ const feed = new Feed({
   link: 'https://jamesbedont.com/',
   language: 'en',
   image: 'https://jamesbedont.com/headshot.jpeg',
-  favicon: 'https://jamesbedont.com/favicon.png',
+  favicon: 'https://jamesbedont.com/favicon.webp',
   copyright: `All rights reserved ${new Date().getFullYear()}, James Bedont`,
   author,
 });
