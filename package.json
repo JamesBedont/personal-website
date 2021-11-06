@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/JamesBedont/personal-website#readme",
   "dependencies": {
-    "aws-sdk": "2.639.0",
     "babel-plugin-prismjs": "2.0.1",
     "feed": "4.1.0",
     "gray-matter": "4.0.2",
