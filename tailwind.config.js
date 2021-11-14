@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'jit',
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     container: {
       screens: {
@@ -12,7 +12,12 @@ module.exports = {
       },
     },
     extend: {
-      typography: {
+      colors: {
+        ghBlack: '#0c1117',
+        ghGreyBg: '#161b22',
+        ghGreyBorder: '#21262e',
+      },
+      typography: (theme) => ({
         DEFAULT: {
           css: {
             'code::before': {
@@ -21,19 +26,54 @@ module.exports = {
             'code::after': {
               content: '',
             },
-            img:  {
-              margin: 'auto'
-            }
+            img: {
+              margin: 'auto',
+            },
           },
         },
-      },
+        dark: {
+          css: {
+            color: theme('colors.gray.300'),
+            h1: {
+              color: theme('colors.gray.300'),
+            },
+            h2: {
+              color: theme('colors.gray.300'),
+            },
+            h3: {
+              color: theme('colors.gray.300'),
+            },
+            h4: {
+              color: theme('colors.gray.300'),
+            },
+            h5: {
+              color: theme('colors.gray.300'),
+            },
+            h6: {
+              color: theme('colors.gray.300'),
+            },
+            strong: {
+              color: theme('colors.gray.300'),
+            },
+            code: {
+              color: theme('colors.gray.300'),
+              backgroundColor: theme('colors.ghGreyBg'),
+            },
+            figcaption: {
+              color: theme('colors.gray.500'),
+            },
+          },
+        },
+      }),
       zIndex: {
         '-1': '-1',
       },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      typography: ['dark'],
+    },
   },
   plugins: [require('@tailwindcss/typography')],
 };

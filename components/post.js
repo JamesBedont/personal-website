@@ -6,10 +6,10 @@ const Post = ({ title, slug, date }) => {
     <div className='post-item py-8'>
       <Link href='/[slug]' as={`/${slug}`}>
         <a>
-          <h2 className='text-2xl font-medium'>{title}</h2>
+          <h2 className='text-2xl font-medium dark:text-gray-300'>{title}</h2>
         </a>
       </Link>
-      <p className='text-gray-500 text-lg'>{date}</p>
+      <p className='text-gray-500 text-lg dark:text-gray-500  '>{date}</p>
     </div>
   );
 };

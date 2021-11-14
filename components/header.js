@@ -19,8 +19,10 @@ const Header = () => {
             />
           </Link>
           <div className='ml-3'>
-            <h1 className='text-4xl font-medium'>James Bedont</h1>
-            <h2 className='text-base'>Software Engineer</h2>
+            <h1 className='text-4xl font-medium dark:text-gray-300'>
+              James Bedont
+            </h1>
+            <h2 className='text-base dark:text-gray-300'>Software Engineer</h2>
           </div>
         </div>
       </header>

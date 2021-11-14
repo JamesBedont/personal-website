@@ -7,7 +7,7 @@ const NavLink = ({ currentPath, path, label, matcher, customClasses }) => {
       <a
         className={`${customClasses ? customClasses : ''} ${
           matcher.test(currentPath) ? 'underline' : 'no-underline'
-        } px-4 bg-white text-lg`}
+        } px-4 bg-white text-lg dark:bg-ghBlack dark:text-gray-300`}
       >
         {label}
       </a>
@@ -20,7 +20,7 @@ const Navigation = ({ currentPath }) => {
     <nav
       className='
         flex justify-center relative z-0
-        before:border-b before:border-gray-300 before:-z-1 before:absolute
+        before:border-b before:border-gray-300  dark:before:border-ghGreyBorder before:-z-1 before:absolute
         before:top-1/2 before:w-full
       '
     >
