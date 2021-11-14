@@ -20,7 +20,7 @@ const Navigation = ({ currentPath }) => {
     <nav
       className='
         flex justify-center relative z-0
-        before:border-b-2 before:border-gray-300 before:-z-1 before:absolute
+        before:border-b before:border-gray-300 before:-z-1 before:absolute
         before:top-1/2 before:w-full
       '
     >

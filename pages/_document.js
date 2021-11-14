@@ -13,16 +13,6 @@ class MyDocument extends Document {
         <body className='line-numbers h-full'>
           <Main />
           <NextScript />
-          <style jsx global>{`
-            html {
-              height: 100%;
-            }
-            #__next {
-              height: 100%;
-              display: flex;
-              flex-direction: column;
-            }
-          `}</style>
         </body>
       </Html>
     );
