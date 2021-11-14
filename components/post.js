@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Post = ({ title, slug, date }) => {
   return (
-    <div className='py-8'>
+    <div className='post-item py-8'>
       <Link href='/[slug]' as={`/${slug}`}>
         <a>
           <h2 className='text-2xl font-medium'>{title}</h2>

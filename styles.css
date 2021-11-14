@@ -1,0 +1,3 @@
+.post-item:not(:last-child) {
+  @apply border-b-2 border-gray-300;
+}
