@@ -1,6 +1,6 @@
 const UnderConstruction = () => {
   return (
-    <div className='page-under-construction'>
+    <div className='w-full h-full flex justify-center items-center'>
       <span>🚧</span>
     </div>
   );
