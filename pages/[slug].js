@@ -12,9 +12,13 @@ const PostPage = ({ content, title, date, description }) => {
   return (
     <Layout title={title} description={description}>
       <article>
-        <h1>{title}</h1>
-        <p className='post-date'>{date}</p>
+        <div className='my-8'>
+          <h1 className='text-4xl font-medium dark:text-gray-300'>{title}</h1>
+          <p className='text-lg text-gray-500 dark:text-gray-500'>{date}</p>
+        </div>
+
         <ReactMarkdown
+          className='prose max-w-none prose-blue prose-lg dark:prose-dark'
           children={content}
           components={{
             a: (props) => (

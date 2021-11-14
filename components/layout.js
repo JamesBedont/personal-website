@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 const Layout = ({ children, title = 'James Bedont', description }) => {
@@ -11,7 +10,7 @@ const Layout = ({ children, title = 'James Bedont', description }) => {
   };
 
   return (
-    <Fragment>
+    <div className='md:container md:mx-auto flex flex-col h-full'>
       <Head>
         <script
           async
@@ -26,10 +25,9 @@ const Layout = ({ children, title = 'James Bedont', description }) => {
       </Head>
       <Header />
 
-      <div className='content'>{children}</div>
-
+      <div className='px-4 flex-grow flex-shrink-0'>{children}</div>
       <Footer />
-    </Fragment>
+    </div>
   );
 };
 

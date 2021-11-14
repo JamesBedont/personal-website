@@ -1,28 +1,33 @@
 import { useRouter } from 'next/router';
 import Navigation from '../components/navigation';
 import Link from 'next/link';
+import { Fragment } from 'react';
 
 const Header = () => {
   const { pathname } = useRouter();
 
   return (
-    <header>
-      <div id='title-wrapper'>
-        <Link href='/'>
-          <img
-            src='/headshot.webp'
-            id='headshot'
-            alt='headshot of james bedont'
-          />
-        </Link>
-        <div id='title-text'>
-          <h1 id='name'>James Bedont</h1>
-          <h2 id='title'>Software Engineer</h2>
+    <Fragment>
+      <header className='flex flex-col items-center'>
+        <div className='flex items-center mb-3 mt-3'>
+          <Link href='/'>
+            <img
+              className='rounded-full w-24'
+              src='/headshot.webp'
+              id='headshot'
+              alt='headshot of james bedont'
+            />
+          </Link>
+          <div className='ml-3'>
+            <h1 className='text-4xl font-medium dark:text-gray-300'>
+              James Bedont
+            </h1>
+            <h2 className='text-base dark:text-gray-300'>Software Engineer</h2>
+          </div>
         </div>
-      </div>
-
+      </header>
       <Navigation currentPath={pathname} />
-    </header>
+    </Fragment>
   );
 };
 

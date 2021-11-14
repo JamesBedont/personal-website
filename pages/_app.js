@@ -1,6 +1,6 @@
-import 'normalize.css';
-import 'styles.css';
-import Prism from 'prismjs';
+import 'prismjs';
+import 'tailwindcss/tailwind.css';
+import '../styles.css';
 
 const MyApp = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
