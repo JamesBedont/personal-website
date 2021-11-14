@@ -10,9 +10,19 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head />
-        <body className='line-numbers'>
+        <body className='h-full'>
           <Main />
           <NextScript />
+          <style jsx global>{`
+            html {
+              height: 100%;
+            }
+            #__next {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+            }
+          `}</style>
         </body>
       </Html>
     );

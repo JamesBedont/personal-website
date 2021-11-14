@@ -1,19 +1,31 @@
 const Footer = () => {
   return (
-    <footer className='footer'>
-      <a href='https://github.com/JamesBedont' rel='noopener'>
+    <footer className='flex justify-center mt-4 flex-shrink-0 p-5'>
+      <a
+        className='underline text-lg'
+        href='https://github.com/JamesBedont'
+        rel='noopener'
+      >
         Github
       </a>
-      <span className='footer-text-separator'>•</span>
-      <a href='https://www.linkedin.com/in/jamesbedont/' rel='noopener'>
+      <span className='mx-3 text-lg'>•</span>
+      <a
+        className='underline text-lg'
+        href='https://www.linkedin.com/in/jamesbedont/'
+        rel='noopener'
+      >
         Linkedin
       </a>
-      <span className='footer-text-separator'>•</span>
-      <a href='https://twitter.com/JamesBedont' rel='noopener'>
+      <span className='mx-3 text-lg'>•</span>
+      <a
+        className='underline text-lg'
+        href='https://twitter.com/JamesBedont'
+        rel='noopener'
+      >
         Twitter
       </a>
-      <span className='footer-text-separator'>•</span>
-      <a href='/feed' rel='noopener'>
+      <span className='mx-3 text-lg'>•</span>
+      <a className='underline text-lg' href='/feed' rel='noopener'>
         RSS
       </a>
     </footer>

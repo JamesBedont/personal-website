@@ -10,7 +10,7 @@ const Layout = ({ children, title = 'James Bedont', description }) => {
   };
 
   return (
-    <div className='md:container md:mx-auto'>
+    <div className='md:container md:mx-auto flex flex-col h-full'>
       <Head>
         <script
           async
@@ -25,8 +25,7 @@ const Layout = ({ children, title = 'James Bedont', description }) => {
       </Head>
       <Header />
 
-      <div className='p-4'>{children}</div>
-
+      <div className='px-4 flex-grow flex-shrink-0'>{children}</div>
       <Footer />
     </div>
   );
