@@ -9,5 +9,5 @@ html {
 }
 
 .post-item:not(:last-child) {
-  @apply border-b border-gray-300 dark:border-ghGreyBorder;
+  @apply border-b border-gray-300 dark:border-ghGrayBorder;
 }

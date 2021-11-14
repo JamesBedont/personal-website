@@ -15,7 +15,7 @@ module.exports = {
       colors: {
         ghBlack: '#0c1117',
         ghGreyBg: '#161b22',
-        ghGreyBorder: '#21262e',
+        ghGrayBorder: '#21262e',
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -56,8 +56,9 @@ module.exports = {
               color: theme('colors.gray.300'),
             },
             code: {
-              color: theme('colors.gray.300'),
-              backgroundColor: theme('colors.ghGreyBg'),
+              color: theme('colors.gray.600'),
+              backgroundColor: theme('colors.gray.300'),
+              borderRadius: '2px',
             },
             figcaption: {
               color: theme('colors.gray.500'),
