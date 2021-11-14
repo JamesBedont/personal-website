@@ -21,6 +21,9 @@ module.exports = {
             'code::after': {
               content: '',
             },
+            img:  {
+              margin: 'auto'
+            }
           },
         },
       },
