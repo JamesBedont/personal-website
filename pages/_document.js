@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head />
-        <body className='h-full'>
+        <body className='line-numbers h-full'>
           <Main />
           <NextScript />
           <style jsx global>{`
